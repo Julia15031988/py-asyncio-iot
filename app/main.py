@@ -31,17 +31,18 @@ async def main() -> None:
         run_sequence(
             service.send_message(Message(speaker_id, MessageType.SWITCH_ON)),
             service.send_message(Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"))
+        ),
+        run_sequence(
+           service.send_message(Message(toilet_id, MessageType.FLUSH)),
+            service.send_message(Message(toilet_id, MessageType.CLEAN))
         )
     )
 
     await run_parallel(
         service.send_message(Message(hue_light_id, MessageType.SWITCH_OFF)),
         service.send_message(Message(speaker_id, MessageType.SWITCH_OFF)),
-        run_sequence(
-            service.send_message(Message(toilet_id, MessageType.FLUSH)),
-            service.send_message(Message(toilet_id, MessageType.CLEAN))
-        )
     )
+
 
 if __name__ == "__main__":
     import time
