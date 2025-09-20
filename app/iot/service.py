@@ -1,7 +1,7 @@
 import random
 import string
 from typing import Protocol
-
+import asyncio
 from .message import Message, MessageType
 
 
@@ -47,3 +47,7 @@ class IOTService:
 
     def send_msg(self, msg: Message) -> None:
         self.devices[msg.device_id].send_message(msg.msg_type, msg.data)
+
+    async def send_message(self, msg: Message) -> None:
+        self.send_msg(msg)
+        await asyncio.sleep(0.1)
